@@ -1,20 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 
-/* Component list: 
+/* 
+Component list: 
     TaskManager
         TaskList
             TaskItem
                 TaskTitle
                 TaskStatus
                 TaskPriority
-                */
+*/
 
 function TaskManager() {
-  return <TaskList />;
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = () => {
+    let task = {
+      title: "Title",
+      status: false,
+      priority: ["Low", "Medium", "High"],
+    };
+
+    return task;
+  };
+
+  setTasks([...tasks, newTask]);
+
+  return (
+    <div>
+      <button onClick={addTask}>Add Task</button>
+      <TaskList tasks={tasks} />
+    </div>
+  );
 }
 
-function TaskList() {
-  return <TaskItem />;
+function TaskList({ tasks }) {
+  return (
+    <ul>
+      {tasks.map((task, index) => (
+        <li key={index}>
+          Title: {task.title}, Status: {task.status ? "Completed" : "Pending"},
+          Priority: {task.priority}
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 function TaskItem() {
@@ -28,7 +57,7 @@ function TaskItem() {
 }
 
 function TaskTitle() {
-  return <p>Title</p>;
+  return <input>Title</input>;
 }
 
 function TaskStatus() {
